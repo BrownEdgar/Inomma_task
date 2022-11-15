@@ -1,15 +1,32 @@
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
-
-import { Button, Form, Input, DatePicker, Divider, Col, Row } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import moment from 'moment';
+import { Button, Form } from 'antd';
+import { selectProducts, addProducts } from '../../features/product/productSlice';
+import ProductFormRender from './ProductFormRender';
 
 import './ProductForm.scss'
-const { RangePicker } = DatePicker;
+
 
 const ProductForm = () => {
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+  console.log(products)
+
+  const onFinish = ({ products }) => {
+    const newProducts = products.map(product => {
+      return {
+        ...product,
+        date: {
+          startDate: moment(product.date[0]).format("MM-DD-YYYY"),
+          endDate: moment(product.date[0]).format("MM-DD-YYYY")
+        }
+      }
+    })
+    console.log(newProducts)
+    dispatch(addProducts(newProducts))
   };
+
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
@@ -22,110 +39,8 @@ const ProductForm = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Row gutter={{ xs: 0, sm: 16, md: 8 }} wrap>
-        <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 5 }} >
-          <Form.Item
-            label="Product name"
-            name={['product', 'product']}
-            rules={[
-              { required: true, message: 'Product must have a name!' },
-              { min: 2, message: 'Product name is to short!' },
-              { pattern: /^[a-zA-Z\s]*$/, message: 'must  contain only letters and space!' }
-            ]}
-          >
-            <Input placeholder="Name" />
-          </Form.Item>
-        </Col>
-        <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 5 }}>
-          <Form.Item
-            label="Price"
-            name={['price', 'price']}
-            rules={[
-              { required: true, message: 'Product must have a price!' },
-              { pattern: /^0*?[1-9]\d*$/, message: 'Please enter a number' },
-            ]}
-          >
-            <Input placeholder="Price" />
-          </Form.Item>
-        </Col>
-        <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 5 }}>
-          <Form.Item
-            label={'Weight'}
-            name={['weight', 'Weight']}
-            rules={[
-              { required: true, message: 'Missing product Weight' },
-              { pattern: /^0*?[1-9]\d*$/, message: 'Please enter a positive number' },
-            ]}
-          >
-            <Input placeholder="Weight" />
-          </Form.Item>
-        </Col>
-        <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 9 }}>
-          <Form.Item
-            label={'Date'}
-
-            name={['date', 'Date']}
-            rules={[{ required: true, message: 'Pleace fill product date!' }]}
-          >
-            <RangePicker />
-          </Form.Item>
-        </Col>
-      </Row>
       <Form.List name="products">
-        {(fields, { add, remove }) => (
-          <>
-            {fields.map(({ key, name, ...restField }) => (
-              <Row key={name.key} gutter={{ xs: 0, sm: 16, md: 8 }} wrap align="middle">
-                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 5 }} >
-                  <Form.Item
-                    label="Product name"
-                    name={['product', 'product']}
-                    rules={[{ required: true, message: 'Product must have a name!' }]}
-                  >
-                    <Input placeholder="Name" />
-                  </Form.Item>
-                </Col>
-                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 5 }}>
-                  <Form.Item
-                    label="Price"
-                    name={['price', 'price']}
-                    rules={[{ required: true, message: 'Product must have a price!' }]}
-                  >
-                    <Input placeholder="Price" />
-                  </Form.Item>
-                </Col>
-                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 5 }}>
-                  <Form.Item
-                    label={'Weight'}
-                    name={['weight', 'Weight']}
-                    rules={[{ required: true, message: 'Missing product Weight' }]}
-                  >
-                    <Input placeholder="Weight" />
-                  </Form.Item>
-                </Col>
-                <Col span={6} xs={{ span: 24 }} sm={{ span: 23 }} md={{ span: 11 }} lg={{ span: 8 }}>
-                  <Form.Item
-                    label={'Date'}
-
-                    name={['date', 'Date']}
-                    rules={[{ required: true, message: 'Pleace fill product date!' }]}
-                  >
-                    <RangePicker />
-                  </Form.Item>
-                </Col>
-                <Col lg={{ span: 1 }} sm={{ span: 1 }} md={{ span: 1 }}>
-                  <MinusCircleOutlined onClick={() => remove(name)} />
-                </Col>
-                <Divider />
-              </Row>
-            ))}
-            <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                Add new Product
-              </Button>
-            </Form.Item>
-          </>
-        )}
+        {(fields, { add, remove }) => ProductFormRender(fields, { add, remove })}
       </Form.List>
       <Form.Item
         wrapperCol={{
@@ -137,7 +52,7 @@ const ProductForm = () => {
           Submit
         </Button>
       </Form.Item>
-    </Form>
+    </Form >
   );
 };
 export default ProductForm;

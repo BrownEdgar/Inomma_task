@@ -1,0 +1,11 @@
+.delete_btn {
+  align-self: center;
+  position: relative;
+  top: 10px;
+  font-size: 20px;
+  transition: scale 0.5s;
+  &:hover {
+    filter: drop-shadow(0 0 1px red);
+    scale: 1.09;
+  }
+}
