@@ -1,0 +1,41 @@
+.ant-card {
+  user-select: none;
+  &-body {
+    padding: 24px 12px 12px !important;
+  }
+  &-meta {
+    &-title {
+      font-weight: 600 !important;
+      letter-spacing: 1px;
+      text-transform: capitalize;
+      font-style: 20px;
+      margin-bottom: 12px !important;
+    }
+    .card-content-list {
+      list-style: none;
+      display: flex;
+      gap: 10px 0;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding-left: 0;
+      li {
+        line-height: 1.6;
+        flex: 1 0 50%;
+
+        font-size: 16px;
+        font-weight: 600;
+        & > span {
+          font-size: 16px;
+          color: rgb(56, 208, 10);
+        }
+      }
+
+      .warning {
+        span {
+          color: rgb(208, 56, 10);
+        }
+      }
+    }
+  }
+}

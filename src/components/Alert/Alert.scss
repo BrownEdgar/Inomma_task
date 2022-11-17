@@ -1,0 +1,9 @@
+.ant-alert {
+  &-info {
+    align-items: center !important;
+  }
+
+  &-close-icon {
+    align-self: flex-start;
+  }
+}

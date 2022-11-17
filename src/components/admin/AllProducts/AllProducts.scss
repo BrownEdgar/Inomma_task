@@ -1,0 +1,26 @@
+.AllProducts {
+  margin: 50px auto;
+  text-align: center;
+  width: 96%;
+  min-width: 340px;
+  overflow: auto;
+
+  .ant-btn-default {
+    &.add-btn {
+      background-color: rgb(51, 198, 10);
+      color: #f2f2f2;
+      font-weight: 600;
+    }
+  }
+
+  .ant-table-wrapper {
+    margin: 20px;
+  }
+
+  .ant-table {
+    min-width: 500px;
+    &-row {
+      cursor: pointer;
+    }
+  }
+}
