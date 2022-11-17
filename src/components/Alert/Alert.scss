@@ -2,7 +2,20 @@
   &-info {
     align-items: center !important;
   }
-
+  &-success {
+    &-product {
+      position: absolute;
+      width: 50%;
+      left: 25%;
+      opacity: 0;
+      transform: translateY(-40px);
+      transition: 0.3s;
+      &.show {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+  }
   &-close-icon {
     align-self: flex-start;
   }

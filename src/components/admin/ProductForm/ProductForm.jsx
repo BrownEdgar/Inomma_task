@@ -1,21 +1,22 @@
+import React, { useContext, createRef } from 'react';
 import { useDispatch } from 'react-redux';
-import React from 'react';
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import { Button, Form } from 'antd';
 import { addProducts } from '../../../features/product/productSlice';
 import ProductFormRender from './ProductFormRender';
 import { useNavigate } from "react-router-dom";
-
+import { AlertContext } from '../../Layaut/MainLayaut'
 
 import './ProductForm.scss'
 import ROUTES from '../../Routes';
 
 
 const ProductForm = () => {
-  const formRef = React.createRef()
+  const formRef = createRef()
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { toggleSuccessAlert } = useContext(AlertContext)
 
   const onFinish = ({ products }) => {
     const newProducts = products.map(product => {
@@ -31,6 +32,8 @@ const ProductForm = () => {
     })
     dispatch(addProducts(newProducts))
     formRef.current.resetFields()
+    console.log(formRef)
+    toggleSuccessAlert(true)
     navigate(ROUTES.ALL_PRODUCT)
   }
 
