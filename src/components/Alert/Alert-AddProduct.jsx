@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 import "./Alert.scss"
 
-function AlertAddProduct({ message, show }) {
+function AlertAddProduct({ message, show, type }) {
   return (
     <Alert
       className={`ant-alert-success-product ${show ? 'show' : ''}`}
       message={message}
-      type="success"
+      type={type}
       showIcon
     />
   )

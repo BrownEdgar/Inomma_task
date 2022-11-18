@@ -4,15 +4,18 @@
   }
   &-success {
     &-product {
-      position: absolute;
-      width: 50%;
-      left: 25%;
+      position: absolute !important;
+
+      min-width: 400px;
+      left: 45%;
       opacity: 0;
       transform: translateY(-40px);
       transition: 0.3s;
+      visibility: hidden;
       &.show {
         opacity: 1;
-        transform: translateY(0px);
+        transform: translateY(-20px);
+        visibility: visible;
       }
     }
   }

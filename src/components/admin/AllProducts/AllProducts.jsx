@@ -36,7 +36,7 @@ export default function AllProducts() {
             : null}
         </Col>
       </Row>
-      <Table dataSource={products} size="large" bordered rowKey="uid">
+      <Table dataSource={products} size="large" bordered rowKey="id">
         <Column title="Name" dataIndex="name" key="name" />
         <Column title="Price" dataIndex="price" key="price" />
         <Column title="Weight" dataIndex="weight" key="weight" />

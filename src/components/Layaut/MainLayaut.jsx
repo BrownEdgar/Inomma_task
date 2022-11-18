@@ -4,6 +4,8 @@ import MainHeader from '../Header/MainHeader';
 import { MENU_OPTIONS } from '../utils/helpers/menuOptions';
 import ROUTES from '../Routes';
 import { AlertAddProduct } from '../Alert';
+import { ALERT_DEFAULT_OPTIONS } from '../utils/constants';
+;
 
 export const AlertContext = React.createContext()
 
@@ -11,10 +13,14 @@ const { Content, Footer, Sider } = Layout;
 
 const MainLayaut = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const [toggleAlert, settoggleAlert] = useState(false);
+  const [toggleAlert, settoggleAlert] = useState(ALERT_DEFAULT_OPTIONS);
+
 
   useEffect(() => {
-    setTimeout(settoggleAlert, 2000, false)
+    const timeOut = setTimeout(settoggleAlert, 2000, false)
+    return () => {
+      clearTimeout(timeOut)
+    }
   }, [toggleAlert])
 
   return (
@@ -23,7 +29,6 @@ const MainLayaut = ({ children }) => {
         minHeight: '100vh',
       }}
     >
-
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <Menu
           theme="dark"
@@ -46,7 +51,11 @@ const MainLayaut = ({ children }) => {
               minHeight: 360,
             }}
           >
-            <AlertAddProduct message={'Product successfully added'} show={toggleAlert} />
+            <AlertAddProduct
+              message={toggleAlert.message}
+              show={toggleAlert.isShow}
+              type={toggleAlert.type}
+            />
             <AlertContext.Provider value={{
               toggleSuccessAlert: settoggleAlert
             }}>

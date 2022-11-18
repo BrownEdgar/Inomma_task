@@ -10,7 +10,6 @@ function Home() {
   const [variant, setvariant] = useState('a')
   const [loading, setLoading] = useState(false);
   const randomProducts = useSelector(selectRandomProducts);
-
   const handleChange = (options) => {
     setLoading(true)
     setTimeout(() => {

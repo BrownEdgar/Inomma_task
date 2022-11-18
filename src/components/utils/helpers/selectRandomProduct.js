@@ -5,7 +5,6 @@ const selectRandomProduct = (data, count = 0) => {
   const dataCopy = [...data]
   const resultArr = []
 
-
   return foo(resultArr, dataCopy, count)
 }
 
