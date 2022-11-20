@@ -5,7 +5,7 @@ import { MENU_OPTIONS } from '../utils/helpers/menuOptions';
 import ROUTES from '../Routes';
 import { AlertAddProduct } from '../Alert';
 import { ALERT_DEFAULT_OPTIONS } from '../utils/constants';
-;
+
 
 export const AlertContext = React.createContext()
 
